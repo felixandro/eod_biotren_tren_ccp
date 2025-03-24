@@ -149,7 +149,7 @@ def encuesta():
             icon=folium.Icon(color="blue", icon="info-sign")
         ).add_to(map_origen)
 
-    st_folium(map_origen, width=400, height = 400 ,returned_objects=[], key="map_origen")
+    st_folium(map_origen, width=300, height = 300 ,returned_objects=[], key="map_origen")
 
     st.subheader("¿En que estación abordó el servicio del biotren?")
     estacion_origen = st.selectbox("Estación donde abordó el Biotren", [""] + estaciones_list, key="estacion_origen")
@@ -181,7 +181,7 @@ def encuesta():
             icon=folium.Icon(color="red", icon="info-sign")
         ).add_to(map_destino)
 
-    st_folium(map_destino, width=700, height = 600 ,returned_objects=[], key="map_destino")
+    st_folium(map_destino, width=300, height = 300 ,returned_objects=[], key="map_destino")
 
     st.subheader("¿En que estación se bajó del servicio del biotren?")
     estacion_destino = st.selectbox("Estación donde se bajó del Biotren", [""] + estaciones_list, key="estacion_destino")
