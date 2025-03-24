@@ -71,10 +71,9 @@ def encuesta():
     st.title("Encuesta Origen Destino Biotren")
     
     genero = st.selectbox("Género", ["", "Masculino", "Femenino"], key="genero")
-    edad = st.number_input("Edad", 14, 100, None, step = None, format = "%d", key="edad")
-
     sentido = st.selectbox("Sentido del viaje", ["", "Sube", "Baja", "Combina"], key="sentido")
     linea = st.selectbox("Línea del Biotren", ["", "Línea 1", "Línea 2"], key="linea")
+    edad = st.number_input("Edad", 14, 100, None, step = None, format = "%d", key="edad")
     
 
     comunas_list = ["1 - Chiguayante", 
