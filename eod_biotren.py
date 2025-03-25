@@ -131,7 +131,7 @@ def encuesta():
     comuna_origen = st.selectbox("Comuna de origen", [""] + comunas_list, key="comuna_origen")
 
     geocoding_origin_button = st.button("Georreferenciar origen")
-    map_origen = folium.Map(location = st.session_state["center_map"], zoom_start= st.session_state["zoom_map"])
+    
 
     if geocoding_origin_button:
         lat_lon_orig = geocode_address(direccion_origen + ", " + comuna_origen.split(" - ")[1])
@@ -143,14 +143,14 @@ def encuesta():
         else:
             st.error("No se encontró la ubicación")
 
+    map_origen = folium.Map(location = st.session_state["center_map"], zoom_start= st.session_state["zoom_map"])
+
     if st.session_state.coords_origen:
         folium.Marker(
             location=st.session_state.coords_origen,
             popup="Origen",
             icon=folium.Icon(color="blue", icon="info-sign")
         ).add_to(map_origen)
-
-
 
     st_folium(map_origen, width=300, height = 300 ,returned_objects=[], key="map_origen")
 
