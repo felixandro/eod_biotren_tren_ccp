@@ -44,7 +44,7 @@ def reset_all():
 
 def check_complete():
     a = (st.session_state["genero"] != "" )
-    b = (st.session_state["edad"] >= 14)*(st.session_state["edad"] <= 100)
+    b = (st.session_state["edad"] is not None)
     c = (st.session_state["sentido"] != "")
     d = (st.session_state["direccion_origen"] != "")
     e = (st.session_state["comuna_origen"] != "")
