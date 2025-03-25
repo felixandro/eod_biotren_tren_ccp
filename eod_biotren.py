@@ -169,6 +169,7 @@ def encuesta():
             st.session_state.zoom_map_origen = 13
         else:
             st.error("No se encontró la ubicación")
+        st.rerun()
 
     map_origen = folium.Map(location = st.session_state["center_map_origen"], zoom_start= st.session_state["zoom_map_origen"])
 
