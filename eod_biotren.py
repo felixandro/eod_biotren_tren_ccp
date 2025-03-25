@@ -265,10 +265,9 @@ def encuesta():
     ingreso = st.selectbox("Ingreso familiar mensual", [""] + rangos_ingreso_list, key="ingreso")
 
     st.subheader("Generar ubicación encuestador")
-    location = streamlit_geolocation()
-
-    if location["latitude"] is not None:
-        st.session_state["encuestador_location"] = location
+    
+    if st.session_state["encuestador_location"]["latitude"] is None:
+        st.session_state["encuestador_location"] =  streamlit_geolocation()
         st.success(f"Ubicación del encuestador generada: {st.session_state['encuestador_location']['latitude']}, {st.session_state['encuestador_location']['longitude']}")
 
     st.write(st.session_state["encuestador_location"])
