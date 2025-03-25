@@ -158,7 +158,7 @@ def encuesta():
                        "8-Chiguayante",
                        "9-Pedro Medina",
                        "10-Manquimávida",
-                       "11-La Leonora",
+                       "11-La Leonera",
                        "12-Hualqui",
                        "13-Juan Pablo II",
                        "14-Diagonal Biobío",
@@ -186,7 +186,8 @@ def encuesta():
                            "5 - Entre 1.200.001 y 1.560.000 $/mes",
                            "6 - Entre 1.560.001 y 2.000.000 $/mes",
                            "7 - Entre 2.000.001 y 2.500.000 $/mes",
-                           "8 - Más de 2.500.000 $/mes"]
+                           "8 - Más de 2.500.000 $/mes",
+                           "9 - Prefiero no responder"]
 
     st.subheader("¿Cuál es el origen de su viaje?")
     direccion_origen = st.text_input("Calle y Número / Intersección / Hito", key="direccion_origen")
@@ -266,9 +267,8 @@ def encuesta():
 
     st.subheader("Generar ubicación encuestador")
     
+    st.session_state["encuestador_location"] =  streamlit_geolocation()
     if st.session_state["encuestador_location"]["latitude"] is None:
-        st.session_state["encuestador_location"] =  streamlit_geolocation()
-    else:
         st.success(f"Ubicación del encuestador generada: {st.session_state['encuestador_location']['latitude']}, {st.session_state['encuestador_location']['longitude']}")
 
     if st.button("Enviar Encuesta"):
