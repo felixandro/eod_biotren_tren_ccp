@@ -3,11 +3,11 @@ from supabase import create_client
 import requests
 import folium
 from streamlit_folium import st_folium
-from datetime import datetime
+from datetime import datetime, timedelta
 
 def registrar_envio_encuesta():
     # Obtener la fecha y hora actuales
-    fecha_hora_actual = datetime.now()
+    fecha_hora_actual = datetime.now() - timedelta(hours=3)
     
     # Formatear la fecha y hora (opcional)
     fecha_hora_formateada = fecha_hora_actual.strftime("%Y-%m-%d %H:%M:%S")
