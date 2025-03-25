@@ -3,6 +3,21 @@ from supabase import create_client
 import requests
 import folium
 from streamlit_folium import st_folium
+from datetime import datetime
+
+def registrar_envio_encuesta():
+    # Obtener la fecha y hora actuales
+    fecha_hora_actual = datetime.now()
+    
+    # Formatear la fecha y hora (opcional)
+    fecha_hora_formateada = fecha_hora_actual.strftime("%Y-%m-%d %H:%M:%S")
+    
+    # Registrar el envío (puedes almacenarlo en un archivo, base de datos, etc.)
+    print(f"Encuesta enviada en: {fecha_hora_formateada}")
+    
+    # Retornar la fecha y hora para su uso posterior si es necesario
+    return fecha_hora_formateada
+
 
 def reset_all():
     st.session_state.clear()
@@ -231,6 +246,7 @@ def encuesta():
 
     if st.button("Enviar Encuesta"):
         respuestas = {
+            "fecha_hora": registrar_envio_encuesta(),
             "encuestador": encuestador,
             "genero": genero,
             "edad": edad,
