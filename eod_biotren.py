@@ -263,7 +263,7 @@ def encuesta():
     st.subheader("¿En qué rango se encuentra su ingreso familiar mensual?")
     ingreso = st.selectbox("Ingreso familiar mensual", [""] + rangos_ingreso_list, key="ingreso")
 
-    st.subheader("Ubicación Encuestado")
+    st.subheader("Generar ubicación encuestador")
     st.session_state["encuestador_location"] = streamlit_geolocation()
 
     if st.session_state["encuestador_location"]["latitude"] and st.session_state["encuestador_location"]["longitude"]:
