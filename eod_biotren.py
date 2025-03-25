@@ -267,7 +267,7 @@ def encuesta():
     st.subheader("Generar ubicación encuestador")
     st.session_state["encuestador_location"] = streamlit_geolocation()
 
-    if st.session_state["encuestador_location"]["latitude"] and st.session_state["encuestador_location"]["longitude"]:
+    if st.session_state["encuestador_location"]["latitude"] is not None:
         st.success(f"Ubicación del encuestador generada: {st.session_state['encuestador_location']['latitude']}, {st.session_state['encuestador_location']['longitude']}")
 
     if st.button("Enviar Encuesta"):
