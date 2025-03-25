@@ -138,12 +138,12 @@ def encuesta():
         if lat_lon_orig:
             st.success(f"Ubicación encontrada: {lat_lon_orig}")
             st.session_state.coords_origen = lat_lon_orig
-            st.session_state.center_map = lat_lon_orig
-            st.session_state.zoom_map = 13
+            st.session_state.center_map_origen = lat_lon_orig
+            st.session_state.zoom_map_origen = 13
         else:
             st.error("No se encontró la ubicación")
 
-    map_origen = folium.Map(location = st.session_state["center_map"], zoom_start= st.session_state["zoom_map"])
+    map_origen = folium.Map(location = st.session_state["center_map_origin"], zoom_start= st.session_state["zoom_map_origin"])
 
     if st.session_state.coords_origen:
         folium.Marker(
@@ -167,15 +167,17 @@ def encuesta():
 
     geocoding_destiny_button = st.button("Georreferenciar destino")
 
-    map_destino = folium.Map(location = (-36.82366462475327, -73.05557506871361), zoom_start= 11.5)
-
     if geocoding_destiny_button:
         lat_lon_des = geocode_address(direccion_destino + ", " + comuna_destino.split(" - ")[1])
         if lat_lon_des:
             st.success(f"Ubicación encontrada: {lat_lon_des}")
             st.session_state.coords_destino = lat_lon_des
+            st.session_state.center_map_destino = lat_lon_des
+            st.session_state.zoom_map_destino = 13
         else:
             st.error("No se encontró la ubicación")
+
+    map_destino = folium.Map(location = st.session_state["center_map_destino"], zoom_start= st.session_state["zoom_map_destino"])
 
     if st.session_state.coords_destino:
         folium.Marker(
@@ -233,10 +235,16 @@ if "coords_origen" not in st.session_state:
 if "coords_destino" not in st.session_state:
     st.session_state.coords_destino = None
 
-if "center_map" not in st.session_state:
+if "center_map_origen" not in st.session_state:
     st.session_state.center_map = (-36.82366462475327, -73.05557506871361)
 
-if "zoom_map" not in st.session_state:
+if "zoom_map_origen" not in st.session_state:
+    st.session_state.zoom_map = 11.5
+
+if "center_map_destino" not in st.session_state:
+    st.session_state.center_map = (-36.82366462475327, -73.05557506871361)
+
+if "zoom_map_destino" not in st.session_state:
     st.session_state.zoom_map = 11.5
 
 if __name__ == "__main__":
