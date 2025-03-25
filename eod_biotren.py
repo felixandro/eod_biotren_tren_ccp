@@ -50,6 +50,33 @@ def geocode_address(address: str):
     
     return None
 
+def georreferenciar(direccion):
+    # URL base para la API de geocodificación de Google Maps
+    url = "https://maps.googleapis.com/maps/api/geocode/json"
+    
+    # Parámetros de la solicitud
+    params = {
+        'address': direccion,
+        'key': "AIzaSyC9Zn8NF4wywU-Y_ekmaF0sLBRExakZxz0"
+    }
+    
+    # Realizar la solicitud GET
+    respuesta = requests.get(url, params=params)
+    
+    # Verificar si la solicitud fue exitosa
+    if respuesta.status_code == 200:
+        datos = respuesta.json()
+        
+        # Si la respuesta tiene resultados, obtener la latitud y longitud
+        if datos['status'] == 'OK':
+            latitud = datos['results'][0]['geometry']['location']['lat']
+            longitud = datos['results'][0]['geometry']['location']['lng']
+            return latitud, longitud
+        else:
+            return None
+    else:
+        return None
+
 # Configurar Supabase
 SUPABASE_URL = "https://ormqsziqbzhingbjmcpx.supabase.co"
 SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9ybXFzemlxYnpoaW5nYmptY3B4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4MzEzMzEsImV4cCI6MjA1ODQwNzMzMX0.3X6-VZNQgBzIdB0lvv6RE_be9kXgJcA9vV-QmdgEaZM"
@@ -168,7 +195,7 @@ def encuesta():
     geocoding_destiny_button = st.button("Georreferenciar destino")
 
     if geocoding_destiny_button:
-        lat_lon_des = geocode_address(direccion_destino + ", " + comuna_destino.split(" - ")[1] + ",BioBio, Chile")
+        lat_lon_des = georreferenciar(direccion_destino + ", " + comuna_destino.split(" - ")[1] + ",BioBio, Chile")
         if lat_lon_des:
             st.success(f"Ubicación encontrada: {lat_lon_des}")
             st.session_state.coords_destino = lat_lon_des
