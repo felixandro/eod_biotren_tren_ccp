@@ -246,22 +246,7 @@ def encuesta():
     st.subheader("¿En qué rango se encuentra su ingreso familiar mensual?")
     ingreso = st.selectbox("Ingreso familiar mensual", [""] + rangos_ingreso_list, key="ingreso")
 
-    location = streamlit_geolocation()
-
-    st.write(location)
-    st.write(location["latitude"])
-
-    map_encuestado = folium.Map(location = (0,0), zoom_start= 12)
-
-    if location["latitude"]:
-        folium.Marker(
-            location= (location["latitude"], location["longitude"]),
-            popup="Origen",
-            icon=folium.Icon(color="blue", icon="info-sign")
-        ).add_to(map_encuestado)
-
-    st_folium(map_encuestado, width=300, height = 300 ,returned_objects=[], key="map_origen")
-
+    st.session_state["encuestador_location"] = streamlit_geolocation()
 
     if st.button("Enviar Encuesta"):
         respuestas = {
@@ -283,7 +268,8 @@ def encuesta():
             "modo_salida": modo_salida,
             "proposito_viaje": proposito,
             "vehiculos_hogar": veh_hogar,
-            "ingreso_familiar": ingreso
+            "ingreso_familiar": ingreso,
+            "ubi_encuestador": (st.session_state["encuestador_location"]["latitude"], st.session_state["encuestador_location"]["longitude"])
         }
 
         guardar_respuestas(respuestas)
