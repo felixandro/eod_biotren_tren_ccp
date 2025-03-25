@@ -148,7 +148,7 @@ def encuesta():
             icon=folium.Icon(color="blue", icon="info-sign")
         ).add_to(map_origen)
         map_origen.location = st.session_state.coords_origen
-        map_origen.zoom_start = 15
+        map_origen.zoom_start = 20
 
     st_folium(map_origen, width=300, height = 300 ,returned_objects=[], key="map_origen")
 
