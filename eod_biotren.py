@@ -249,10 +249,11 @@ def encuesta():
     location = streamlit_geolocation()
 
     st.write(location)
+    st.write(location["latitude"])
 
     map_encuestado = folium.Map(location = (0,0), zoom_start= 12)
 
-    if st.session_state.coords_origen:
+    if location["latitude"]:
         folium.Marker(
             location= (location["latitude"], location["longitude"]),
             popup="Origen",
