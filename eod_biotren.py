@@ -236,16 +236,16 @@ if "coords_destino" not in st.session_state:
     st.session_state.coords_destino = None
 
 if "center_map_origen" not in st.session_state:
-    st.session_state.center_map = (-36.82366462475327, -73.05557506871361)
+    st.session_state.center_map_origen = (-36.82366462475327, -73.05557506871361)
 
 if "zoom_map_origen" not in st.session_state:
-    st.session_state.zoom_map = 11.5
+    st.session_state.zoom_map_origen = 11.5
 
 if "center_map_destino" not in st.session_state:
-    st.session_state.center_map = (-36.82366462475327, -73.05557506871361)
+    st.session_state.center_map_destino = (-36.82366462475327, -73.05557506871361)
 
 if "zoom_map_destino" not in st.session_state:
-    st.session_state.zoom_map = 11.5
+    st.session_state.zoom_map_destino = 11.5
 
 if __name__ == "__main__":
     encuesta()
