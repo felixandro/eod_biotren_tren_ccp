@@ -139,7 +139,7 @@ def encuesta():
             st.success(f"Ubicación encontrada: {lat_lon_orig}")
             st.session_state.coords_origen = lat_lon_orig
             st.session_state.center_map = lat_lon_orig
-            st.session_state.zoom_map = 20
+            st.session_state.zoom_map = 14
         else:
             st.error("No se encontró la ubicación")
 
