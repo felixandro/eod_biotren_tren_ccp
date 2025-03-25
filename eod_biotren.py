@@ -4,6 +4,8 @@ import requests
 import folium
 from streamlit_folium import st_folium
 from datetime import datetime, timedelta
+from streamlit_geolocation import streamlit_geolocation
+
 
 def registrar_envio_encuesta():
     # Obtener la fecha y hora actuales
