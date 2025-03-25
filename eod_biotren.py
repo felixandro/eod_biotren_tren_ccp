@@ -131,13 +131,15 @@ def encuesta():
     comuna_origen = st.selectbox("Comuna de origen", [""] + comunas_list, key="comuna_origen")
 
     geocoding_origin_button = st.button("Georreferenciar origen")
-    map_origen = folium.Map(location = (-36.82366462475327, -73.05557506871361), zoom_start= 11.5)
+    map_origen = folium.Map(location = st.session_state["center_map"], zoom_start= st.session_state["zoom_map"])
 
     if geocoding_origin_button:
         lat_lon_orig = geocode_address(direccion_origen + ", " + comuna_origen.split(" - ")[1])
         if lat_lon_orig:
             st.success(f"Ubicación encontrada: {lat_lon_orig}")
             st.session_state.coords_origen = lat_lon_orig
+            st.session_state.center_map = lat_lon_orig
+            st.session_state.zoom_map = 20
         else:
             st.error("No se encontró la ubicación")
 
@@ -147,8 +149,8 @@ def encuesta():
             popup="Origen",
             icon=folium.Icon(color="blue", icon="info-sign")
         ).add_to(map_origen)
-        map_origen.location = st.session_state.coords_origen
-        map_origen.zoom_start = 20
+
+
 
     st_folium(map_origen, width=300, height = 300 ,returned_objects=[], key="map_origen")
 
@@ -230,6 +232,12 @@ if "coords_origen" not in st.session_state:
 
 if "coords_destino" not in st.session_state:
     st.session_state.coords_destino = None
+
+if "center_map" not in st.session_state:
+    st.session_state.center_map = (-36.82366462475327, -73.05557506871361)
+
+if "zoom_map" not in st.session_state:
+    st.session_state.zoom_map = 11.5
 
 if __name__ == "__main__":
     encuesta()
