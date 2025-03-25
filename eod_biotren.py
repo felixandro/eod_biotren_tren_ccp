@@ -40,6 +40,7 @@ def reset_all():
     st.session_state["proposito"] = ""
     st.session_state["veh_hogar"] = ""
     st.session_state["ingreso"] = ""
+    st.session_state["encuestador_location"] = {"latitude": None, "longitude": None, "accuracy": None}
     st.rerun()
 
 def check_complete():
@@ -322,6 +323,9 @@ if "center_map_destino" not in st.session_state:
 
 if "zoom_map_destino" not in st.session_state:
     st.session_state.zoom_map_destino = 11.5
+
+if "encuestador_location" not in st.session_state:
+    st.session_state["encuestador_location"] = {"latitude": None, "longitude": None, "accuracy": None}
 
 if __name__ == "__main__":
     encuesta()
