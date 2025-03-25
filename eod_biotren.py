@@ -107,10 +107,6 @@ def guardar_respuestas(respuestas):
     
 def encuesta():
     
-    response_ip = requests.get('https://api.ipify.org?format=json')
-    ip_cliente = response_ip.json().get('ip')
-    st.write(f"Tu IP es: {ip_cliente}")
-
     # Obtener el parámetro user_id de la URL
     encuestador = st.query_params.encuestador  # Si no hay user_id, asignar 'desconocido'
     
