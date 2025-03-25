@@ -42,6 +42,23 @@ def reset_all():
     st.session_state["ingreso"] = ""
     st.rerun()
 
+def check_complete():
+    a = (st.session_state["genero"] != "" )
+    b = (st.session_state["edad"] >= 14)*(st.session_state["edad"] <= 100)
+    c = (st.session_state["sentido"] != "")
+    d = (st.session_state["direccion_origen"] != "")
+    e = (st.session_state["comuna_origen"] != "")
+    f = (st.session_state["estacion_origen"] != "")
+    g = (st.session_state["modo_llegada"] != "")
+    h = (st.session_state["direccion_destino"] != "")
+    i = (st.session_state["comuna_destino"] != "")
+    j = (st.session_state["estacion_destino"] != "")
+    k = (st.session_state["modo_salida"] != "")
+    l = (st.session_state["proposito"] != "")
+    m = (st.session_state["veh_hogar"] != "")
+    n = (st.session_state["ingreso"] != "")
+    return a*b*c*d*e*f*g*h*i*j*k*l*m*n
+
 def geocode_address(address: str):
     """
     Obtiene las coordenadas (latitud, longitud) de una dirección usando la API de geocodificación de Mapbox.
@@ -246,36 +263,45 @@ def encuesta():
     st.subheader("¿En qué rango se encuentra su ingreso familiar mensual?")
     ingreso = st.selectbox("Ingreso familiar mensual", [""] + rangos_ingreso_list, key="ingreso")
 
+    st.subheader("Ubicación Encuestado")
     st.session_state["encuestador_location"] = streamlit_geolocation()
 
     if st.session_state["encuestador_location"]["latitude"] and st.session_state["encuestador_location"]["longitude"]:
         st.success(f"Ubicación del encuestador generada: {st.session_state['encuestador_location']['latitude']}, {st.session_state['encuestador_location']['longitude']}")
 
     if st.button("Enviar Encuesta"):
-        respuestas = {
-            "fecha_hora": registrar_envio_encuesta(),
-            "encuestador": encuestador,
-            "genero": genero,
-            "edad": edad,
-            "sentido_viaje": sentido,
-            "linea_biotren": linea,
-            "direccion_origen": direccion_origen,
-            "comuna_origen": comuna_origen,
-            "coords_origen": st.session_state.coords_origen if st.session_state.coords_origen else (0,0),
-            "estacion_origen": estacion_origen,
-            "modo_llegada": modo_llegada,
-            "direccion_destino": direccion_destino,
-            "comuna_destino": comuna_destino,
-            "coords_destino": st.session_state.coords_destino if st.session_state.coords_destino else (0,0),
-            "estacion_destino": estacion_destino,
-            "modo_salida": modo_salida,
-            "proposito_viaje": proposito,
-            "vehiculos_hogar": veh_hogar,
-            "ingreso_familiar": ingreso,
-            "ubi_encuestador": (st.session_state["encuestador_location"]["latitude"], st.session_state["encuestador_location"]["longitude"])
-        }
+        if check_complete():
+            if (st.session_state["encuestador_location"]["latitude"] is not None):
+                respuestas = {
+                    "fecha_hora": registrar_envio_encuesta(),
+                    "encuestador": encuestador,
+                    "genero": genero,
+                    "edad": edad,
+                    "sentido_viaje": sentido,
+                    "linea_biotren": linea,
+                    "direccion_origen": direccion_origen,
+                    "comuna_origen": comuna_origen,
+                    "coords_origen": st.session_state.coords_origen if st.session_state.coords_origen else (0,0),
+                    "estacion_origen": estacion_origen,
+                    "modo_llegada": modo_llegada,
+                    "direccion_destino": direccion_destino,
+                    "comuna_destino": comuna_destino,
+                    "coords_destino": st.session_state.coords_destino if st.session_state.coords_destino else (0,0),
+                    "estacion_destino": estacion_destino,
+                    "modo_salida": modo_salida,
+                    "proposito_viaje": proposito,
+                    "vehiculos_hogar": veh_hogar,
+                    "ingreso_familiar": ingreso,
+                    "ubi_encuestador": (st.session_state["encuestador_location"]["latitude"], st.session_state["encuestador_location"]["longitude"]),
+                    "prec_ubi_encuestador": st.session_state["encuestador_location"]["accuracy"]
+                }
 
-        guardar_respuestas(respuestas)
+                guardar_respuestas(respuestas)
+
+            else:
+                st.error("Genere las coordenadas de su ubicación")
+        else:
+            st.error("Complete todos los campos")
 
 
 
