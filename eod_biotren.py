@@ -244,6 +244,10 @@ def encuesta():
     st.subheader("¿En qué rango se encuentra su ingreso familiar mensual?")
     ingreso = st.selectbox("Ingreso familiar mensual", [""] + rangos_ingreso_list, key="ingreso")
 
+    location = streamlit_geolocation()
+
+    st.write(location)
+
     if st.button("Enviar Encuesta"):
         respuestas = {
             "fecha_hora": registrar_envio_encuesta(),
