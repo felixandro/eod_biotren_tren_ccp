@@ -134,7 +134,7 @@ def encuesta():
     
 
     if geocoding_origin_button:
-        lat_lon_orig = geocode_address(direccion_origen + ", " + comuna_origen.split(" - ")[1])
+        lat_lon_orig = geocode_address(direccion_origen + ", " + comuna_origen.split(" - ")[1]+ ",BioBio, Chile"))
         if lat_lon_orig:
             st.success(f"Ubicación encontrada: {lat_lon_orig}")
             st.session_state.coords_origen = lat_lon_orig
@@ -168,7 +168,7 @@ def encuesta():
     geocoding_destiny_button = st.button("Georreferenciar destino")
 
     if geocoding_destiny_button:
-        lat_lon_des = geocode_address(direccion_destino + ", " + comuna_destino.split(" - ")[1])
+        lat_lon_des = geocode_address(direccion_destino + ", " + comuna_destino.split(" - ")[1] + ",BioBio, Chile")
         if lat_lon_des:
             st.success(f"Ubicación encontrada: {lat_lon_des}")
             st.session_state.coords_destino = lat_lon_des
