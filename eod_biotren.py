@@ -268,6 +268,7 @@ def encuesta():
     
     if st.session_state["encuestador_location"]["latitude"] is None:
         st.session_state["encuestador_location"] =  streamlit_geolocation()
+    else:
         st.success(f"Ubicación del encuestador generada: {st.session_state['encuestador_location']['latitude']}, {st.session_state['encuestador_location']['longitude']}")
 
     st.write(st.session_state["encuestador_location"])
