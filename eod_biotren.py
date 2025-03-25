@@ -134,7 +134,7 @@ def encuesta():
     
 
     if geocoding_origin_button:
-        lat_lon_orig = geocode_address(direccion_origen + ", " + comuna_origen.split(" - ")[1]+ ",BioBio, Chile"))
+        lat_lon_orig = geocode_address(direccion_origen + ", " + comuna_origen.split(" - ")[1]+ ",BioBio, Chile")
         if lat_lon_orig:
             st.success(f"Ubicación encontrada: {lat_lon_orig}")
             st.session_state.coords_origen = lat_lon_orig
