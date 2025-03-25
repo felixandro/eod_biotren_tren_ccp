@@ -143,7 +143,7 @@ def encuesta():
         else:
             st.error("No se encontró la ubicación")
 
-    map_origen = folium.Map(location = st.session_state["center_map_origin"], zoom_start= st.session_state["zoom_map_origin"])
+    map_origen = folium.Map(location = st.session_state["center_map_origen"], zoom_start= st.session_state["zoom_map_origen"])
 
     if st.session_state.coords_origen:
         folium.Marker(
