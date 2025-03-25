@@ -271,7 +271,11 @@ def encuesta():
     else:
         st.success(f"Ubicación del encuestador generada: {st.session_state['encuestador_location']['latitude']}, {st.session_state['encuestador_location']['longitude']}")
 
+
     st.write(st.session_state["encuestador_location"])
+
+    for key in st.session_state.keys():
+        st.write(f"{key}: {st.session_state[key]}")
 
     if st.button("Enviar Encuesta"):
         if check_complete():
